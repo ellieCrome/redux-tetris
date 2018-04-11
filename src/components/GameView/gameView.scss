@@ -1,6 +1,9 @@
 .border {
-    background-color: gray;
     width: 375px;
     height: 400px;
     position: relative;
+    background-size: 25px 25px;
+    background-image: linear-gradient(to right, #181818 .3px, transparent .3px), linear-gradient(to bottom, #181818 .3px, transparent .3px);
+    background-color: #383838;
+    overflow: hidden;
 }
