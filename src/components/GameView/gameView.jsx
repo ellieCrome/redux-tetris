@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PieceView from "../PieceView";
+import RubbleView from "../RubbleView";
 import "./gameView.scss";
 
 const mapStateToProps = state => {
   return {
-    piece: state.fallingPiece
+    piece: state.fallingPiece,
+    rubble: state.rubble
   };
 };
 
@@ -77,6 +79,7 @@ class GameView extends Component {
     return (
       <div className="border">
         <PieceView piece={this.props.piece} />
+        <RubbleView rubble={this.props.rubble} />
       </div>
     );
   }
@@ -84,6 +87,7 @@ class GameView extends Component {
 
 GameView.propTypes = {
   piece: PropTypes.object,
+  rubble: PropTypes.array,
   fallOneRow: PropTypes.func,
   move: PropTypes.func,
   rotate: PropTypes.func

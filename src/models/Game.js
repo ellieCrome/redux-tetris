@@ -6,7 +6,7 @@ class Game {
     return {
       totalX: 20,
       totalY: 15,
-      rubble: {},
+      rubble: [],
       fallingPiece: this.newPiece()
     };
   }
@@ -45,8 +45,16 @@ class Game {
 
       newState.fallingPiece = newFallingPiece;
     } else {
+      newState = this.convertToRubble(state);
       newState.fallingPiece = this.newPiece();
     }
+
+    return newState;
+  }
+
+  convertToRubble(state) {
+    let newState = Object.assign({}, state);
+    newState.rubble = newState.rubble.concat(newState.fallingPiece.points());
 
     return newState;
   }
