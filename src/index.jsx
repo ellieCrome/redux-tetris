@@ -1,39 +1,32 @@
 import React from "react";
 import { render } from "react-dom";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import App from "./components/App";
-import Shapes from "./components/Shapes";
+import logger from "redux-logger";
 
-let initialState = [
-  new Shapes.O(1, 1),
-  new Shapes.I(1, 4),
-  new Shapes.T(1, 9),
-  new Shapes.S(1, 13),
-  new Shapes.Z(1, 17),
-  new Shapes.L(1, 21),
-  new Shapes.J(1, 25)
-];
+import Game from "./models/Game";
+import GameView from "./components/GameView";
 
-const store = createStore(reducer);
+const game = new Game();
+const initialState = game.generate();
+const store = createStore(reducer, initialState, applyMiddleware(logger));
 
-function reducer(state = initialState, action) {
+function reducer(state, action) {
   switch (action.type) {
-    case "TICK":
-      return [...state, new Shapes.O(action.data * 2, action.data * 2)];
+    case "FALL_ONE":
+      return game.fallOneRow(state);
+    case "ROTATE_CLOCKWISE":
+      return game.rotate(state, true);
+    case "ROTATE_ANTICLOCKWISE":
+      return game.rotate(state, false);
     default:
       return state;
   }
 }
 
-var counter = 1;
-setInterval(() => {
-  store.dispatch({ type: "TICK", data: counter++ });
-}, 1000);
-
 render(
   <Provider store={store}>
-    <App shapes={initialState} />
+    <GameView />
   </Provider>,
   document.getElementById("app")
 );

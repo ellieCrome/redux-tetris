@@ -5,8 +5,8 @@ import "./square.scss";
 class Square extends Component {
   render() {
     var style = {
-      left: (this.props.col - 1) * 25 + "px",
-      top: (this.props.row - 1) * 25 + "px"
+      left: this.props.x * 25 + "px",
+      top: this.props.y * 25 + "px"
     };
 
     return <div className="square" style={style} />;
@@ -14,8 +14,8 @@ class Square extends Component {
 }
 
 Square.propTypes = {
-  col: PropTypes.number,
-  row: PropTypes.number
+  x: PropTypes.number,
+  y: PropTypes.number
 };
 
 export default Square;
