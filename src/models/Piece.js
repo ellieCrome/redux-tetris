@@ -30,6 +30,22 @@ class Piece {
 
     this.rotation = clockwiseRotations[rotatedIndex];
   }
+
+  move(direction) {
+    switch (direction) {
+      case "LEFT":
+        if (this.offsetX > 0) this.offsetX -= 1;
+        break;
+      case "RIGHT":
+        if (this.offsetX < 14) this.offsetX += 1;
+        break;
+      case "DOWN":
+        if (this.offsetY < 14) this.offsetY += 1;
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 export default Piece;

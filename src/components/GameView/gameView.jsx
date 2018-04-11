@@ -17,49 +17,66 @@ const mapDispatchToProps = dispatch => {
         type: "FALL_ONE"
       });
     },
-    rotateClockwise() {
+    move(direction) {
       dispatch({
-        type: "ROTATE_CLOCKWISE"
+        type: "MOVE",
+        direction: direction
       });
     },
-    rotateAnticlockwise() {
+    rotate(direction) {
       dispatch({
-        type: "ROTATE_ANTICLOCKWISE"
+        type: "ROTATE",
+        direction: direction
       });
     }
   };
 };
 
 class GameView extends Component {
+  componentWillMount() {
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
   componentDidMount() {
     setInterval(() => {
       this.props.fallOneRow();
-  }, 1000);
+    }, 1000);
   }
 
-  handleClockwiseClick() {
-    this.props.rotateClockwise();
-  }
+  handleKeyDown(event) {
+    let UP = 38;
+    let DOWN = 40;
+    let LEFT = 37;
+    let RIGHT = 39;
+    let X = 88;
+    let Z = 90;
 
-  handleAnticlockwiseClick() {
-    this.props.rotateAnticlockwise();
+    switch (event.keyCode) {
+      case LEFT:
+        this.props.move("LEFT");
+        break;
+      case RIGHT:
+        this.props.move("RIGHT");
+        break;
+      case DOWN:
+        this.props.move("DOWN");
+        break;
+      case UP:
+      case X:
+        this.props.rotate("CLOCKWISE");
+        break;
+      case Z:
+        this.props.rotate("ANTI_CLOCKWISE");
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
     return (
-      <div>
-        <div className="border">
-          <PieceView piece={this.props.piece} />
-        </div>
-
-        <div>
-          <button onClick={this.handleClockwiseClick.bind(this)}>
-            ROTATE CLOCKWISE
-          </button>
-          <button onClick={this.handleAnticlockwiseClick.bind(this)}>
-            ROTATE ANTICLOCKWISE
-          </button>
-        </div>
+      <div className="border">
+        <PieceView piece={this.props.piece} />
       </div>
     );
   }
@@ -68,8 +85,8 @@ class GameView extends Component {
 GameView.propTypes = {
   piece: PropTypes.object,
   fallOneRow: PropTypes.func,
-  rotateClockwise: PropTypes.func,
-  rotateAnticlockwise: PropTypes.func
+  move: PropTypes.func,
+  rotate: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameView);

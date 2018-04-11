@@ -19,7 +19,18 @@ class Game {
   rotate(state, isClockwise) {
     let newState = Object.assign({}, state);
     let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
+
     newFallingPiece.rotate(isClockwise);
+    newState.fallingPiece = newFallingPiece;
+
+    return newState;
+  }
+
+  move(state, direction) {
+    let newState = Object.assign({}, state);
+    let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
+
+    newFallingPiece.move(direction);
     newState.fallingPiece = newFallingPiece;
 
     return newState;

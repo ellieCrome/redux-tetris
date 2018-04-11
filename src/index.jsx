@@ -15,10 +15,13 @@ function reducer(state, action) {
   switch (action.type) {
     case "FALL_ONE":
       return game.fallOneRow(state);
-    case "ROTATE_CLOCKWISE":
-      return game.rotate(state, true);
-    case "ROTATE_ANTICLOCKWISE":
-      return game.rotate(state, false);
+    case "ROTATE":
+      var isClockwise = false;
+      if (action.direction == "CLOCKWISE") isClockwise = true;
+
+      return game.rotate(state, isClockwise);
+    case "MOVE":
+      return game.move(state, action.direction);
     default:
       return state;
   }
