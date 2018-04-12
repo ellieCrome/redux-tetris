@@ -1,17 +1,7 @@
 import Piece from "../models/Piece";
 
-import {
-  fallOneRow,
-  undoFallOneRow,
-  rotate,
-  move,
-  undoMove,
-  getMaxY
-} from "./helpers/PieceHelper";
-import {
-  convertPieceToRubble,
-  fallingPieceOverlapsRubble
-} from "./helpers/GameHelper";
+import PieceHelper from "./helpers/PieceHelper";
+import GameHelper from "./helpers/GameHelper";
 
 export function pieceReducer(state, action) {
   let newState = Object.assign({}, state);
@@ -20,45 +10,53 @@ export function pieceReducer(state, action) {
 
   switch (action.type) {
     case "FALL_ONE":
-      if (getMaxY(newState.fallingPiece) < state.totalY) {
-        newState.fallingPiece = fallOneRow(newState.fallingPiece);
-
-        if (fallingPieceOverlapsRubble(newState)) {
-          newState.fallingPiece = undoFallOneRow(newState.fallingPiece);
-          newState = convertPieceToRubble(newState);
-          newState.fallingPiece = new Piece();
-        }
-      } else {
-        newState = convertPieceToRubble(newState);
-        newState.fallingPiece = new Piece();
-      }
-      return newState;
-
+      return handleFallOne(newState);
     case "ROTATE":
-      var isClockwise = false;
-      if (action.direction == "CLOCKWISE") isClockwise = true;
-      newState.fallingPiece = rotate(newState.fallingPiece, isClockwise);
-
-      if (fallingPieceOverlapsRubble(newState)) {
-        newState = convertPieceToRubble(newState);
-        newState.fallingPiece = new Piece();
-      }
-      return newState;
-
+      return handleRotate(newState, action.direction);
     case "MOVE":
-      newState.fallingPiece = move(newState.fallingPiece, action.direction);
-
-      if (fallingPieceOverlapsRubble(newState)) {
-        newState.fallingPiece = undoMove(
-          newState.fallingPiece,
-          action.direction
-        );
-        newState = convertPieceToRubble(newState);
-        newState.fallingPiece = new Piece();
-      }
-
-      return newState;
+      return handleMove(newState, action.direction);
     default:
       return state;
   }
+}
+
+function handleFallOne(state) {
+  let withinYBoundary = PieceHelper.getMaxY(state.fallingPiece) < state.totalY;
+
+  if (withinYBoundary) {
+    state.fallingPiece = PieceHelper.fallOneRow(state.fallingPiece);
+
+    if (GameHelper.fallingPieceOverlapsRubble(state)) {
+      state.fallingPiece = PieceHelper.undoFallOneRow(state.fallingPiece);
+      state = GameHelper.convertPieceToRubble(state);
+    }
+  } else {
+    state = GameHelper.convertPieceToRubble(state);
+  }
+
+  return state;
+}
+
+function handleRotate(state, direction) {
+  var isClockwise;
+  direction == "CLOCKWISE" ? (isClockwise = true) : (isClockwise = false);
+
+  state.fallingPiece = PieceHelper.rotate(state.fallingPiece, isClockwise);
+
+  if (GameHelper.fallingPieceOverlapsRubble(state)) {
+    //UNDO?
+    state = GameHelper.convertPieceToRubble(state);
+  }
+  return state;
+}
+
+function handleMove(state, direction) {
+  state.fallingPiece = PieceHelper.move(state.fallingPiece, direction);
+
+  if (GameHelper.fallingPieceOverlapsRubble(state)) {
+    state.fallingPiece = PieceHelper.undoMove(state.fallingPiece, direction);
+    state = GameHelper.convertPieceToRubble(state);
+  }
+
+  return state;
 }

@@ -1,32 +1,34 @@
-export function fallOneRow(piece) {
+var PieceHelper = {};
+
+PieceHelper.fallOneRow = function(piece) {
   piece.offsetY++;
   return piece;
-}
+};
 
-export function undoFallOneRow(piece) {
+PieceHelper.undoFallOneRow = function(piece) {
   piece.offsetY--;
   return piece;
-}
+};
 
-export function move(piece, direction) {
+PieceHelper.move = function(piece, direction) {
   switch (direction) {
     case "LEFT":
-      if (getMinX(piece) > 0) piece.offsetX -= 1;
+      if (this.getMinX(piece) > 0) piece.offsetX -= 1;
       break;
     case "RIGHT":
-      if (getMaxX(piece) < 14) piece.offsetX += 1;
+      if (this.getMaxX(piece) < 14) piece.offsetX += 1;
       break;
     case "DOWN":
-      if (getMaxY(piece) < 15) piece.offsetY += 1;
+      if (this.getMaxY(piece) < 15) piece.offsetY += 1;
       break;
     default:
       break;
   }
 
   return piece;
-}
+};
 
-export function undoMove(piece, direction) {
+PieceHelper.undoMove = function(piece, direction) {
   switch (direction) {
     case "LEFT":
       piece.offsetX += 1;
@@ -42,9 +44,9 @@ export function undoMove(piece, direction) {
   }
 
   return piece;
-}
+};
 
-export function rotate(piece, isClockwise) {
+PieceHelper.rotate = function(piece, isClockwise) {
   let clockwiseRotations = ["N", "E", "S", "W"];
 
   let currentIndex = clockwiseRotations.findIndex(item => {
@@ -62,24 +64,26 @@ export function rotate(piece, isClockwise) {
   piece.rotation = clockwiseRotations[rotatedIndex];
 
   return piece;
-}
+};
 
-export function getYs(piece) {
+PieceHelper.getYs = function(piece) {
   return piece.points().map(point => point.y);
-}
+};
 
-export function getXs(piece) {
+PieceHelper.getXs = function(piece) {
   return piece.points().map(point => point.x);
-}
+};
 
-export function getMaxY(piece) {
-  return Math.max.apply(Math, getYs(piece));
-}
+PieceHelper.getMaxY = function(piece) {
+  return Math.max.apply(Math, this.getYs(piece));
+};
 
-export function getMinX(piece) {
-  return Math.min.apply(Math, getXs(piece));
-}
+PieceHelper.getMinX = function(piece) {
+  return Math.min.apply(Math, this.getXs(piece));
+};
 
-export function getMaxX(piece) {
-  return Math.max.apply(Math, getXs(piece));
-}
+PieceHelper.getMaxX = function(piece) {
+  return Math.max.apply(Math, this.getXs(piece));
+};
+
+export default PieceHelper;
