@@ -19,7 +19,7 @@ PieceHelper.move = function(piece, direction) {
       if (this.getMaxX(piece) < 14) piece.offsetX += 1;
       break;
     case "DOWN":
-      if (this.getMaxY(piece) < 15) piece.offsetY += 1;
+      if (this.getMaxY(piece) < 19) piece.offsetY += 1;
       break;
     default:
       break;

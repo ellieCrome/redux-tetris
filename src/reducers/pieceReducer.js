@@ -25,7 +25,8 @@ export function pieceReducer(state, action) {
 }
 
 function handleFallOne(state) {
-  let withinYBoundary = PieceHelper.getMaxY(state.fallingPiece) < state.totalY;
+  let withinYBoundary =
+    PieceHelper.getMaxY(state.fallingPiece) < state.totalY - 1;
 
   if (withinYBoundary) {
     state.fallingPiece = PieceHelper.fallOneRow(state.fallingPiece);
