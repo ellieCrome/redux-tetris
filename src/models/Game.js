@@ -17,54 +17,41 @@ class Game {
   }
 
   rotate(state, isClockwise) {
-    let newState = Object.assign({}, state);
-    let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
+    state.fallingPiece.rotate(isClockwise);
 
-    newFallingPiece.rotate(isClockwise);
-    newState.fallingPiece = newFallingPiece;
-
-    if (this.fallingPieceOverlapsRubble(newState)) {
-      newState = this.convertToRubble(state);
-      newState.fallingPiece = this.newPiece();
+    if (this.fallingPieceOverlapsRubble(state)) {
+      state = this.convertToRubble(state);
+      state.fallingPiece = this.newPiece();
     }
 
-    return newState;
+    return state;
   }
 
   move(state, direction) {
-    let newState = Object.assign({}, state);
-    let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
+    state.fallingPiece.move(direction);
 
-    newFallingPiece.move(direction);
-    newState.fallingPiece = newFallingPiece;
-
-    if (this.fallingPieceOverlapsRubble(newState)) {
-      newState = this.convertToRubble(state);
-      newState.fallingPiece = this.newPiece();
+    if (this.fallingPieceOverlapsRubble(state)) {
+      state = this.convertToRubble(state);
+      state.fallingPiece = this.newPiece();
     }
 
-    return newState;
+    return state;
   }
 
   fallOneRow(state) {
-    let newState = Object.assign({}, state);
-
     if (state.fallingPiece.getMaxY() < state.totalY) {
-      var newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
-      newFallingPiece.offsetY++;
+      state.fallingPiece.offsetY++;
 
-      newState.fallingPiece = newFallingPiece;
-
-      if (this.fallingPieceOverlapsRubble(newState)) {
-        newState = this.convertToRubble(state);
-        newState.fallingPiece = this.newPiece();
+      if (this.fallingPieceOverlapsRubble(state)) {
+        state = this.convertToRubble(state);
+        state.fallingPiece = this.newPiece();
       }
     } else {
-      newState = this.convertToRubble(state);
-      newState.fallingPiece = this.newPiece();
+      state = this.convertToRubble(state);
+      state.fallingPiece = this.newPiece();
     }
 
-    return newState;
+    return state;
   }
 
   fallingPieceOverlapsRubble(state) {
@@ -76,10 +63,9 @@ class Game {
   }
 
   convertToRubble(state) {
-    let newState = Object.assign({}, state);
-    newState.rubble = newState.rubble.concat(newState.fallingPiece.points());
+    state.rubble = state.rubble.concat(state.fallingPiece.points());
 
-    return newState;
+    return state;
   }
 }
 
