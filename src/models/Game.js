@@ -23,6 +23,11 @@ class Game {
     newFallingPiece.rotate(isClockwise);
     newState.fallingPiece = newFallingPiece;
 
+    if (this.fallingPieceOverlapsRubble(newState)) {
+      newState = this.convertToRubble(state);
+      newState.fallingPiece = this.newPiece();
+    }
+
     return newState;
   }
 
@@ -33,23 +38,41 @@ class Game {
     newFallingPiece.move(direction);
     newState.fallingPiece = newFallingPiece;
 
+    if (this.fallingPieceOverlapsRubble(newState)) {
+      newState = this.convertToRubble(state);
+      newState.fallingPiece = this.newPiece();
+    }
+
     return newState;
   }
 
   fallOneRow(state) {
     let newState = Object.assign({}, state);
 
-    if (state.fallingPiece.offsetY + 1 < state.totalY) {
+    if (state.fallingPiece.getMaxY() < state.totalY) {
       var newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
       newFallingPiece.offsetY++;
 
       newState.fallingPiece = newFallingPiece;
+
+      if (this.fallingPieceOverlapsRubble(newState)) {
+        newState = this.convertToRubble(state);
+        newState.fallingPiece = this.newPiece();
+      }
     } else {
       newState = this.convertToRubble(state);
       newState.fallingPiece = this.newPiece();
     }
 
     return newState;
+  }
+
+  fallingPieceOverlapsRubble(state) {
+    return state.fallingPiece.points().some(p =>
+      state.rubble.some(r => {
+        return r.x == p.x && r.y == p.y;
+      })
+    );
   }
 
   convertToRubble(state) {

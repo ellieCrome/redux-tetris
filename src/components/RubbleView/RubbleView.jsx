@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Square from "../Square";
 
-class PieceView extends Component {
+class RubbleView extends Component {
   render() {
     return (
       <div>
@@ -14,8 +14,8 @@ class PieceView extends Component {
   }
 }
 
-PieceView.propTypes = {
-  rubble: PropTypes.object
+RubbleView.propTypes = {
+  rubble: PropTypes.array
 };
 
-export default PieceView;
+export default RubbleView;

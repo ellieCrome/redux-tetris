@@ -5,14 +5,39 @@ class Piece {
     this.offsetY = offsetY;
     this.rotation = "N";
   }
+
   points() {
     return this.shape.getRotatedPoints(this.rotation).map(point => {
       point.x += this.offsetX;
       point.y += this.offsetY;
-
       return point;
     });
   }
+
+  getYs() {
+    return this.points().map(point => point.y);
+  }
+
+  getXs() {
+    return this.points().map(point => point.x);
+  }
+
+  getMinY() {
+    return Math.min.apply(Math, this.getYs());
+  }
+
+  getMaxY() {
+    return Math.max.apply(Math, this.getYs());
+  }
+
+  getMinX() {
+    return Math.min.apply(Math, this.getXs());
+  }
+
+  getMaxX() {
+    return Math.max.apply(Math, this.getXs());
+  }
+
   rotate(isClockwise) {
     let clockwiseRotations = ["N", "E", "S", "W"];
 
@@ -34,13 +59,13 @@ class Piece {
   move(direction) {
     switch (direction) {
       case "LEFT":
-        if (this.offsetX > 0) this.offsetX -= 1;
+        if (this.getMinX() > 0) this.offsetX -= 1;
         break;
       case "RIGHT":
-        if (this.offsetX < 14) this.offsetX += 1;
+        if (this.getMaxX() < 14) this.offsetX += 1;
         break;
       case "DOWN":
-        if (this.offsetY < 14) this.offsetY += 1;
+        if (this.getMaxY() < 15) this.offsetY += 1;
         break;
       default:
         break;
