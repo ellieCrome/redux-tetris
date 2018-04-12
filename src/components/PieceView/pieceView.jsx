@@ -9,7 +9,12 @@ class PieceView extends Component {
         {this.props.piece
           .points()
           .map(point => (
-            <Square key={point.x + " " + point.y} x={point.x} y={point.y} />
+            <Square
+              key={point.x + " " + point.y}
+              x={point.x}
+              y={point.y}
+              colour={point.colour}
+            />
           ))}
       </div>
     );

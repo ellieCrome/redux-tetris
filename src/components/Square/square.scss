@@ -1,7 +1,41 @@
 .square {
-  background-color: #108dec;
-  box-shadow: inset 0 0 5px #0b62a5;
-  width: 25px;
-  height: 25px;
-  position: absolute;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+
+    &.blue {
+        background-color: #108dec;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.yellow {
+        background-color: yellow;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.red {
+        background-color: red;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.green {
+        background-color: green;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.purple {
+        background-color: #551a8b;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.orange {
+        background-color: #ffa500;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
+    &.light-blue {
+        background-color: lightblue;
+        box-shadow: inset 0 0 5px #0b62a5;
+    }
+
 }

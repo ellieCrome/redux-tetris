@@ -7,7 +7,12 @@ class RubbleView extends Component {
     return (
       <div>
         {this.props.rubble.map(point => (
-          <Square key={point.x + " " + point.y} x={point.x} y={point.y} />
+          <Square
+            key={point.x + " " + point.y}
+            x={point.x}
+            y={point.y}
+            colour={point.colour}
+          />
         ))}
       </div>
     );
