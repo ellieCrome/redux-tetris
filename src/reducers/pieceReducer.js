@@ -4,6 +4,10 @@ import PieceHelper from "./helpers/PieceHelper";
 import GameHelper from "./helpers/GameHelper";
 
 export function pieceReducer(state, action) {
+  if (GameHelper.isGameOver(state)) {
+    return state;
+  }
+
   let newState = Object.assign({}, state);
   let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
   newState.fallingPiece = newFallingPiece;

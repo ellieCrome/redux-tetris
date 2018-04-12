@@ -3,7 +3,9 @@ var GameHelper = {};
 
 GameHelper.convertPieceToRubble = function(game) {
   game.rubble = game.rubble.concat(game.fallingPiece.points());
-  game.fallingPiece = new Piece();
+  if (!this.isGameOver(game)) {
+    game.fallingPiece = new Piece();
+  }
   return game;
 };
 
@@ -13,6 +15,12 @@ GameHelper.fallingPieceOverlapsRubble = function(game) {
       return r.x == p.x && r.y == p.y;
     })
   );
+};
+
+GameHelper.isGameOver = function(game) {
+  return game.rubble.some(r => {
+    return r.y == 0;
+  });
 };
 
 export default GameHelper;
