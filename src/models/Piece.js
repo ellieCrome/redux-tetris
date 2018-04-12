@@ -1,6 +1,10 @@
+import Shapes from "./Shapes";
+
 class Piece {
   constructor(shape, offsetX = 5, offsetY = 0) {
-    this.shape = shape;
+    let randomIndex = Math.floor(Math.random() * 7);
+
+    this.shape = Shapes[randomIndex];
     this.offsetX = offsetX;
     this.offsetY = offsetY;
     this.rotation = "N";
@@ -12,64 +16,6 @@ class Piece {
       point.y += this.offsetY;
       return point;
     });
-  }
-
-  getYs() {
-    return this.points().map(point => point.y);
-  }
-
-  getXs() {
-    return this.points().map(point => point.x);
-  }
-
-  getMinY() {
-    return Math.min.apply(Math, this.getYs());
-  }
-
-  getMaxY() {
-    return Math.max.apply(Math, this.getYs());
-  }
-
-  getMinX() {
-    return Math.min.apply(Math, this.getXs());
-  }
-
-  getMaxX() {
-    return Math.max.apply(Math, this.getXs());
-  }
-
-  rotate(isClockwise) {
-    let clockwiseRotations = ["N", "E", "S", "W"];
-
-    let currentIndex = clockwiseRotations.findIndex(item => {
-      return this.rotation == item;
-    });
-
-    let maxIndex = clockwiseRotations.length - 1;
-    let rotatedIndex;
-    if (isClockwise) {
-      rotatedIndex = currentIndex < maxIndex ? currentIndex + 1 : 0; //add 1, if at end index=0
-    } else {
-      rotatedIndex = currentIndex > 0 ? currentIndex - 1 : maxIndex; //remove 1, if at beginning index=max
-    }
-
-    this.rotation = clockwiseRotations[rotatedIndex];
-  }
-
-  move(direction) {
-    switch (direction) {
-      case "LEFT":
-        if (this.getMinX() > 0) this.offsetX -= 1;
-        break;
-      case "RIGHT":
-        if (this.getMaxX() < 14) this.offsetX += 1;
-        break;
-      case "DOWN":
-        if (this.getMaxY() < 15) this.offsetY += 1;
-        break;
-      default:
-        break;
-    }
   }
 }
 
