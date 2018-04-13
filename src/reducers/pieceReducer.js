@@ -10,14 +10,19 @@ export function pieceReducer(state, action) {
   newState.fallingPiece = newFallingPiece;
 
   switch (action.type) {
-    case "FALL_ONE":
-      return handleFallOne(newState);
-    case "ROTATE":
-      return handleRotate(newState, action.direction);
-    case "MOVE":
-      return handleMove(newState, action.direction);
     case "RESTART":
       return handleRestart();
+    case "PAUSE":
+      return handlePause(newState);
+    case "FALL_ONE":
+      if (newState.isPaused || newState.isGameOver) return state;
+      return handleFallOne(newState);
+    case "ROTATE":
+      if (newState.isPaused || newState.isGameOver) return state;
+      return handleRotate(newState, action.direction);
+    case "MOVE":
+      if (newState.isPaused || newState.isGameOver) return state;
+      return handleMove(newState, action.direction);
     default:
       return state;
   }
@@ -69,4 +74,10 @@ function handleRestart() {
   var game = new Game();
 
   return game.generate();
+}
+
+function handlePause(state) {
+  state.isPaused = !state.isPaused;
+
+  return state;
 }

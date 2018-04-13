@@ -7,7 +7,8 @@ class Game {
       totalY: 20,
       rubble: [],
       fallingPiece: new Piece(),
-      isGameOver: false
+      isGameOver: false,
+      isPaused: false
     };
   }
 }

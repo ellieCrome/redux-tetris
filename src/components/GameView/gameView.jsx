@@ -9,7 +9,8 @@ const mapStateToProps = state => {
   return {
     piece: state.fallingPiece,
     rubble: state.rubble,
-    isGameOver: state.isGameOver
+    isGameOver: state.isGameOver,
+    isPaused: state.isPaused
   };
 };
 
@@ -36,6 +37,11 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "RESTART"
       });
+    },
+    pause() {
+      dispatch({
+        type: "PAUSE"
+      });
     }
   };
 };
@@ -58,6 +64,7 @@ class GameView extends Component {
     let RIGHT = 39;
     let X = 88;
     let Z = 90;
+    let P = 80;
 
     switch (event.keyCode) {
       case LEFT:
@@ -75,6 +82,9 @@ class GameView extends Component {
         break;
       case Z:
         this.props.rotate("ANTI_CLOCKWISE");
+        break;
+      case P:
+        this.props.pause();
         break;
       default:
         break;
@@ -97,8 +107,19 @@ class GameView extends Component {
           <div className="game-over-container">
             <div className="overlay">
               <div className="game-over-text">
-                Game Over
+                GAME OVER
                 <span onClick={() => this.handleOnClick()}>Try again?</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {this.props.isPaused && (
+          <div className="game-over-container">
+            <div className="overlay">
+              <div className="game-over-text">
+                PAUSED
+                <span>Press P to resume</span>
               </div>
             </div>
           </div>
@@ -115,7 +136,8 @@ GameView.propTypes = {
   move: PropTypes.func,
   rotate: PropTypes.func,
   restart: PropTypes.func,
-  isGameOver: PropTypes.bool
+  isGameOver: PropTypes.bool,
+  isPaused: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameView);
