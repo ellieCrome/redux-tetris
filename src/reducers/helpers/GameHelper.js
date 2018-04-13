@@ -7,6 +7,8 @@ GameHelper.convertPieceToRubble = function(game) {
 
   if (!this.isGameOver(game)) {
     game.fallingPiece = new Piece();
+  } else {
+    game.isGameOver = true;
   }
 
   return game;

@@ -122,31 +122,31 @@ const jPositions = rotation => {
   switch (rotation) {
     case "N":
       return [
-        point(0, -1, "blue"),
-        point(0, 0, "blue"),
-        point(0, 1, "blue"),
-        point(-1, 1, "blue")
+        point(1, -1, "blue"),
+        point(1, 0, "blue"),
+        point(1, 1, "blue"),
+        point(0, 1, "blue")
       ];
     case "E":
       return [
-        point(-1, 0, "blue"),
         point(0, 0, "blue"),
         point(1, 0, "blue"),
-        point(-1, -1, "blue")
+        point(2, 0, "blue"),
+        point(0, -1, "blue")
       ];
     case "S":
       return [
-        point(0, -1, "blue"),
-        point(0, 0, "blue"),
-        point(0, 1, "blue"),
-        point(1, -1, "blue")
+        point(1, -1, "blue"),
+        point(1, 0, "blue"),
+        point(1, 1, "blue"),
+        point(2, -1, "blue")
       ];
     case "W":
       return [
-        point(-1, 0, "blue"),
         point(0, 0, "blue"),
         point(1, 0, "blue"),
-        point(1, 1, "blue")
+        point(2, 0, "blue"),
+        point(2, 1, "blue")
       ];
   }
 };

@@ -6,7 +6,8 @@ class Game {
       totalX: 15,
       totalY: 20,
       rubble: [],
-      fallingPiece: new Piece()
+      fallingPiece: new Piece(),
+      isGameOver: false
     };
   }
 }

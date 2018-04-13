@@ -8,7 +8,8 @@ import "./gameView.scss";
 const mapStateToProps = state => {
   return {
     piece: state.fallingPiece,
-    rubble: state.rubble
+    rubble: state.rubble,
+    isGameOver: state.isGameOver
   };
 };
 
@@ -29,6 +30,11 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "ROTATE",
         direction: direction
+      });
+    },
+    restart() {
+      dispatch({
+        type: "RESTART"
       });
     }
   };
@@ -75,11 +81,28 @@ class GameView extends Component {
     }
   }
 
+  handleOnClick() {
+    return this.props.restart();
+  }
+
   render() {
     return (
-      <div className="border">
-        <PieceView piece={this.props.piece} />
-        <RubbleView rubble={this.props.rubble} />
+      <div>
+        <div className="border">
+          <PieceView piece={this.props.piece} />
+          <RubbleView rubble={this.props.rubble} />
+        </div>
+
+        {this.props.isGameOver && (
+          <div className="game-over-container">
+            <div className="overlay">
+              <div className="game-over-text">
+                Game Over
+                <span onClick={() => this.handleOnClick()}>Try again?</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -90,7 +113,9 @@ GameView.propTypes = {
   rubble: PropTypes.array,
   fallOneRow: PropTypes.func,
   move: PropTypes.func,
-  rotate: PropTypes.func
+  rotate: PropTypes.func,
+  restart: PropTypes.func,
+  isGameOver: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameView);

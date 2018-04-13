@@ -1,13 +1,10 @@
 import Piece from "../models/Piece";
+import Game from "../models/Game";
 
 import PieceHelper from "./helpers/PieceHelper";
 import GameHelper from "./helpers/GameHelper";
 
 export function pieceReducer(state, action) {
-  if (GameHelper.isGameOver(state)) {
-    return state;
-  }
-
   let newState = Object.assign({}, state);
   let newFallingPiece = Object.assign(new Piece(), state.fallingPiece);
   newState.fallingPiece = newFallingPiece;
@@ -19,6 +16,8 @@ export function pieceReducer(state, action) {
       return handleRotate(newState, action.direction);
     case "MOVE":
       return handleMove(newState, action.direction);
+    case "RESTART":
+      return handleRestart();
     default:
       return state;
   }
@@ -64,4 +63,10 @@ function handleMove(state, direction) {
   }
 
   return state;
+}
+
+function handleRestart() {
+  var game = new Game();
+
+  return game.generate();
 }

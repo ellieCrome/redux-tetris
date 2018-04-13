@@ -9,8 +9,6 @@ class Square extends Component {
       top: this.props.y * 25 + "px"
     };
 
-    console.log(this.props)
-
     var className = "square " + this.props.colour;
     return <div className={className} style={style} />;
   }
