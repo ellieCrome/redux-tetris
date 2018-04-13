@@ -2,40 +2,36 @@
     width: 25px;
     height: 25px;
     position: absolute;
-
-    &.blue {
-        background-color: #108dec;
-        box-shadow: inset 0 0 5px #0b62a5;
-    }
+    background-color: #1a75ff;
+    box-shadow: inset 0 0 5px #0052cc;
 
     &.yellow {
-        background-color: yellow;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #ffff1a;
+        box-shadow: inset 0 0 5px #cccc00;
     }
 
     &.red {
-        background-color: red;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #ff1a1a;
+        box-shadow: inset 0 0 5px #cc0000;
     }
 
     &.green {
-        background-color: green;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #47d147;
+        box-shadow: inset 0 0 5px #29a329;
     }
 
     &.purple {
-        background-color: #551a8b;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #c61aff;
+        box-shadow: inset 0 0 5px #9900cc;
     }
 
     &.orange {
-        background-color: #ffa500;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #ffa31a;
+        box-shadow: inset 0 0 5px #cc7a00;
     }
 
     &.light-blue {
-        background-color: lightblue;
-        box-shadow: inset 0 0 5px #0b62a5;
+        background-color: #1affff;
+        box-shadow: inset 0 0 5px #00cccc;
     }
-
 }
